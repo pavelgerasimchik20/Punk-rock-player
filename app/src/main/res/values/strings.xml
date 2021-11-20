@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Punk-rock Player</string>
+    <string name="notification_name">Let me punk - let me rock</string>
+    <string name="stop_button">Stop</string>
+    <string name="play_button">Play</string>
+    <string name="previous_button">Previous</string>
+    <string name="next_button">Next</string>
+    <string name="cover">Cover</string>
+    <string name="pause_button">Pause</string>
 </resources>
