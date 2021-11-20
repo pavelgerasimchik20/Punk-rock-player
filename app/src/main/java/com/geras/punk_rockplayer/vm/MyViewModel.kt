@@ -5,9 +5,8 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-class MyViewModel @Inject constructor() : ViewModel(), Controller {
+class MyViewModel : ViewModel(), Controller {
 
     private val _getActionComand = MutableSharedFlow<Command>()
     private val _setPlayPosition = MutableSharedFlow<Long>()
