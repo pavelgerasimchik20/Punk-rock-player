@@ -2,23 +2,26 @@ package com.geras.punk_rockplayer.vm
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 
 class MyViewModel : ViewModel(), Controller {
 
     private val _getActionComand = MutableSharedFlow<Command>()
+    val getActionComand = _getActionComand.asSharedFlow()
+
     private val _setPlayPosition = MutableSharedFlow<Long>()
+    val setPlayPosition = _setPlayPosition.asSharedFlow()
 
     override fun search(position: Long) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             _setPlayPosition.emit(position)
         }
     }
 
     private fun runCommandByUsingCoroutine(command: Command) {
-        viewModelScope.launch(Dispatchers.Main) {
+        viewModelScope.launch {
             _getActionComand.emit(command)
         }
     }
