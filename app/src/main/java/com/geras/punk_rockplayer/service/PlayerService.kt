@@ -509,7 +509,7 @@ class PlayerService : Service() {
                 .setMediaSession(mediaSession.sessionToken)
         )
         builder.setSmallIcon(R.drawable.ic_baseline_music_note_24)
-        builder.color = ContextCompat.getColor(this, R.color.white)
+        builder.color = ContextCompat.getColor(this, R.color.primaryDarkColor)
         builder.setShowWhen(false)
         builder.priority = NotificationCompat.PRIORITY_HIGH
         return builder.build()
