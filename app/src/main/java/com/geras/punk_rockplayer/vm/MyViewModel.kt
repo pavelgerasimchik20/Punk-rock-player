@@ -1,52 +1,57 @@
 package com.geras.punk_rockplayer.vm
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MyViewModel : ViewModel(), Controller {
+private const val TAG = "TAG from MyViewModel"
 
-    private val _getActionComand = MutableSharedFlow<Command>()
-    val getActionComand = _getActionComand.asSharedFlow()
+class MyViewModel @Inject constructor() : ViewModel(), Controller {
 
-    private val _setPlayPosition = MutableSharedFlow<Long>()
-    val setPlayPosition = _setPlayPosition.asSharedFlow()
+    private val _commandToPlayerFlow = MutableSharedFlow<Command>()
+    val commandToPlayerFlow = _commandToPlayerFlow.asSharedFlow()
 
-    override fun search(position: Long) {
+    private val _setPlaybackPositionFlow = MutableSharedFlow<Long>()
+    val setPlaybackPositionFlow = _setPlaybackPositionFlow.asSharedFlow()
+
+    override fun seekTo(position: Long) {
         viewModelScope.launch {
-            _setPlayPosition.emit(position)
+            _setPlaybackPositionFlow.emit(position)
         }
     }
 
-    private fun runCommandByUsingCoroutine(command: Command) {
+    private fun postCommand(command: Command) {
         viewModelScope.launch {
-            _getActionComand.emit(command)
+            _commandToPlayerFlow.emit(command)
         }
     }
 
     override fun next() {
-        runCommandByUsingCoroutine(Command.NEXT)
+        Log.d(TAG, "next")
+        postCommand(Command.NEXT)
     }
 
     override fun previous() {
-        runCommandByUsingCoroutine(Command.PREVIOUS)
+        Log.d(TAG, "previous")
+        postCommand(Command.PREVIOUS)
     }
 
     override fun play() {
-        runCommandByUsingCoroutine(Command.PLAY)
+        Log.d(TAG, "play")
+        postCommand(Command.PLAY)
     }
 
     override fun pause() {
-        runCommandByUsingCoroutine(Command.PAUSE)
+        Log.d(TAG, "pause")
+        postCommand(Command.PAUSE)
     }
 
     override fun stop() {
-        runCommandByUsingCoroutine(Command.STOP)
+        Log.d(TAG, "stop")
+        postCommand(Command.STOP)
     }
-}
-
-enum class Command {
-    PREVIOUS, PLAY, NEXT, PAUSE, STOP
 }

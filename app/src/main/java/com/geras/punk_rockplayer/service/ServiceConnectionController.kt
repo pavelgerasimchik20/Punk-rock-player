@@ -108,6 +108,7 @@ class ServiceConnectionController @Inject constructor(private val context: Conte
                 }
                 Command.PAUSE -> mediaController?.transportControls?.pause()
                 Command.STOP -> mediaController?.transportControls?.stop()
+                Command.NONE -> Unit
             }
         }
     }

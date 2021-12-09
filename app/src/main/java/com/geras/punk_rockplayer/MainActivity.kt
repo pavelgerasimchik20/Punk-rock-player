@@ -21,6 +21,7 @@ import com.geras.punk_rockplayer.service.ServiceConnectionController
 import com.geras.punk_rockplayer.vm.Command
 import com.geras.punk_rockplayer.vm.Controller
 import com.geras.punk_rockplayer.vm.MyViewModel
+import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
@@ -43,28 +44,29 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // enable auto-scrolling for textLog
         binding.textLog.movementMethod = ScrollingMovementMethod()
 
         setListenersPlayerControl()
         setListenerSeekBar()
         registerObserversStatePlayer()
-        launchCollectPlaybackPosition()
-        launchCollectCommandToPlayer()
+        lunchCollectPlaybackPosition()
+        lunchCollectCommandToPlayer()
         prefatorySetSeekBarSettings()
         showCurrentTrackInfo()
     }
 
-    private fun launchCollectPlaybackPosition() {
+    private fun lunchCollectPlaybackPosition() {
         lifecycleScope.launchWhenStarted {
-            model.setPlayPosition.collect {
+            model.setPlaybackPositionFlow.collect {
                 connectionController.seekTo(it)
             }
         }
     }
 
-    private fun launchCollectCommandToPlayer() {
+    private fun lunchCollectCommandToPlayer() {
         lifecycleScope.launchWhenStarted {
-            model.getActionComand.collect {
+            model.commandToPlayerFlow.collect {
                 applyCommandPlayer(it)
             }
         }
@@ -187,7 +189,7 @@ class MainActivity : AppCompatActivity() {
 
             override fun onStopTrackingTouch(playSeekBar: SeekBar?) {
                 playSeekBar?.let {
-                    playerControl.search(it.progress.toLong())
+                    playerControl.seekTo(it.progress.toLong())
                     isSeekBarTrackingTouch = false
                 }
             }
@@ -211,7 +213,7 @@ class MainActivity : AppCompatActivity() {
     private fun prefatorySetSeekBarSettings() {
         setSeekBarPosition(0)
         currentTrack?.let {
-            setSeekBarDuration(it.duration.toLong())
+            setSeekBarDuration(it.duration)
         } ?: setSeekBarDuration(0)
     }
 
@@ -233,7 +235,7 @@ class MainActivity : AppCompatActivity() {
             showCover(track.bitmapUri)
             binding.trackTitle.text = track.title
             binding.trackArtist.text = track.artist
-            setSeekBarDuration(track.duration.toLong())
+            setSeekBarDuration(track.duration)
         }
     }
 

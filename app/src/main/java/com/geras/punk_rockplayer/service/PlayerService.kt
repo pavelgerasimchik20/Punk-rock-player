@@ -45,6 +45,7 @@ class PlayerService : Service() {
     private var callbackPlaybackPositionChanged: ((position: Long) -> Unit)? = null
     private var callbackCurrentTrackChanged: ((track: Song) -> Unit)? = null
     private var oldCurrentTrack: Song? = null
+
     private val metadataBuilder = MediaMetadataCompat.Builder()
     private val stateBuilder = createStateBuilder()
     private val audioManager by lazy { getSystemService(AUDIO_SERVICE) as AudioManager }
@@ -279,6 +280,7 @@ class PlayerService : Service() {
 
     private val becomingNoisyReceiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
+            // Disconnecting headphones - stop playback
             if ((AudioManager.ACTION_AUDIO_BECOMING_NOISY == intent.action)) {
                 mediaSessionCallback.onPause()
             }
