@@ -1,5 +1,12 @@
 [
   {
+    "title": "Bit Bit Loop",
+    "artist": "Kevin MacLeod",
+    "bitmapUri": "https://d37oebn0w9ir6a.cloudfront.net/account_2263/Cover-EDMFEST-EUROPEepb0310_0e5dada680e923891ab80cf0f35e1758.jpg",
+    "trackUri": "https://freepd.com/music/Bit Bit Loop.mp3",
+    "duration": 77000
+  },
+  {
     "title": "Ice and Snow",
     "artist": "Rafael Krux",
     "bitmapUri": "https://www.pelicanwater.com/blog/wp-content/uploads/2019/02/cropped-Snow_Blog_Jan_2019-01.jpg",
@@ -33,5 +40,12 @@
     "bitmapUri": "https://d37oebn0w9ir6a.cloudfront.net/account_2263/Cover-EDMFEST-EUROPEepb0310_0e5dada680e923891ab80cf0f35e1758.jpg",
     "trackUri": "https://freepd.com/music/Bit Bit Loop.mp3",
     "duration": 77000
+  },
+  {
+    "title": "Big Eyes",
+    "artist": "Il Murashko",
+    "bitmapUri": "https://cdn.cnn.com/cnnnext/dam/assets/191016111719-03-record-breaking-ants-exlarge-169.jpg",
+    "trackUri": "https://freepd.com/music/Big Eyes.mp3",
+    "duration": 149000
   }
 ]

@@ -38,7 +38,7 @@ data class SongsFromJson @Inject constructor(private val context: Context) :
 
     private fun assignListOfSong(): List<Song> {
         val gson = Gson()
-        val json = getJsonByUsingContextAssets("playlist.json")
+        val json = getJsonByUsingContextAssets("playList.json")
         val listOfTrackType: Type = object : TypeToken<List<Song>>() {}.type
         return gson.fromJson(json, listOfTrackType)
     }
